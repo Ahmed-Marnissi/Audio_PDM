@@ -24,9 +24,11 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "decimation._task.h"
-
+#include "fft_task.h"
 #include "FreeRTOS.h"
 #include "task.h"
+
+#include "debug.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,7 +54,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN PFP */
 
@@ -76,7 +77,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+   HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -86,24 +87,43 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  DEBUG_UTILS_INIT();
   /* USER CODE END SysInit */
 
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
 
-  BaseType_t    xReturned = xTaskCreate(
+
+  BaseType_t    xReturned  =pdFALSE;
+
+		         xReturned = xTaskCreate(
 		  	  	  vDecimationTaskRoutine ,
                   "DECIMATION_TASK" ,
                   300U,
 				  NULL,
-                  tskIDLE_PRIORITY + 1U ,
+                  tskIDLE_PRIORITY + 2U ,
                   NULL  );
+
 
   if (  xReturned != pdPASS )
   {
 	  /*Reset */
   }
+
+  xReturned = xTaskCreate(
+		  vFFT_TaskRoutine  ,
+       "FFT_TASK" ,
+       300U,
+		  NULL,
+       tskIDLE_PRIORITY + 1U ,
+       NULL  );
+
+
+    if (  xReturned != pdPASS )
+    {
+  	  /*Reset */
+    }
+
 
   /* start system */
   vTaskStartScheduler();
@@ -165,6 +185,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
+
 
 void Error_Handler(void)
 {

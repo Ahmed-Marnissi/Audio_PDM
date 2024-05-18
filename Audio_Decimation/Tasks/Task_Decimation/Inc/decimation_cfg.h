@@ -25,6 +25,13 @@
 
 #define DECMATION_QUEUE_SIZE 4U
 
-#define DECIMATION_TASK_PERIODE 1U ;
+#define DECIMATION_TASK_PERIODE 1U
+
+/* FFT defines */
+
+
+
+#define FFT_SAMPLES                        512
+#define FFT_SIZE                FFT_SAMPLES / 2 //res 31.5hz
 
 #endif /* TASK_DECIMATION_INC_DECIMATION_CFG_H_ */

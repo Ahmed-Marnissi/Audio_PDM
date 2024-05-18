@@ -24,6 +24,7 @@ SUBDIRS := \
 BSP/Microphone/Src \
 Core/Src \
 Core/Startup \
+DebugUtils \
 Drivers/STM32F4xx_HAL_Driver/Src \
 Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src \
 Middlewares/ST/STM32_USB_Device_Library/Core/Src \
@@ -32,6 +33,7 @@ Middlewares/Third_Party/FreeRTOS/Source \
 Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F \
 Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang \
 Tasks/Task_Decimation/Src \
+Tasks/Task_fft/Src \
 USB_DEVICE/App \
 USB_DEVICE/Target \
 

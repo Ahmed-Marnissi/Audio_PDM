@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include USB_DEVICE/Target/subdir.mk
 -include USB_DEVICE/App/subdir.mk
+-include Tasks/Task_fft/Src/subdir.mk
 -include Tasks/Task_Decimation/Src/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/subdir.mk
 -include Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/subdir.mk
@@ -19,6 +20,7 @@ RM := rm -rf
 -include Middlewares/ST/STM32_USB_Device_Library/Core/Src/subdir.mk
 -include Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/subdir.mk
 -include Drivers/STM32F4xx_HAL_Driver/Src/subdir.mk
+-include DebugUtils/subdir.mk
 -include Core/Startup/subdir.mk
 -include Core/Src/subdir.mk
 -include BSP/Microphone/Src/subdir.mk
@@ -70,8 +72,8 @@ all: main-build
 main-build: Audio_Decimation.elf secondary-outputs
 
 # Tool invocations
-Audio_Decimation.elf Audio_Decimation.map: $(OBJS) $(USER_OBJS) C:\Users\21624\Desktop\dsp_ws\Audio_Decimation\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Audio_Decimation.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\21624\Desktop\dsp_ws\Audio_Decimation\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Audio_Decimation.map" -Wl,--gc-sections -static -L"C:\Users\21624\Desktop\dsp_ws\Audio_Decimation\Drivers\CMSIS\Lib\GCC" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Audio_Decimation.elf Audio_Decimation.map: $(OBJS) $(USER_OBJS) C:\Users\21624\Desktop\dsp_ws\Audio_PDM\Audio_Decimation\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "Audio_Decimation.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\21624\Desktop\dsp_ws\Audio_PDM\Audio_Decimation\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Audio_Decimation.map" -Wl,--gc-sections -static -L"C:\Users\21624\Desktop\dsp_ws\Audio_PDM\Audio_Decimation\Drivers\CMSIS\Lib\GCC" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

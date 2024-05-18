@@ -30,6 +30,16 @@ uint8_t u8Microphone_Init ( void  )
 
 	  GPIO_InitTypeDef GPIO_InitStruct = {0};
 	  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
+
+	  /** Initializes the peripherals clock
+		  */
+		    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2S;
+		    PeriphClkInitStruct.PLLI2S.PLLI2SN = 369;
+		    PeriphClkInitStruct.PLLI2S.PLLI2SR = 6;
+		    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
+		    {
+		      return 1U ;
+		    }
 	  __HAL_RCC_DMA1_CLK_ENABLE();
 
 	  HAL_NVIC_SetPriority(DMA1_Stream3_IRQn, 5, 0);
@@ -53,7 +63,7 @@ uint8_t u8Microphone_Init ( void  )
 	    hi2s.Init.AudioFreq = I2S_AUDIOFREQ_32K;
 	    hi2s.Init.CPOL = I2S_CPOL_LOW;
 	    hi2s.Init.ClockSource = I2S_CLOCK_PLL;
-	    hi2s.Init.FullDuplexMode = I2S_FULLDUPLEXMODE_ENABLE;
+	    hi2s.Init.FullDuplexMode = I2S_FULLDUPLEXMODE_DISABLE;
 	    if (HAL_I2S_Init(&hi2s) != HAL_OK)
 	    {
 	     return 3U ;
@@ -62,15 +72,7 @@ uint8_t u8Microphone_Init ( void  )
 
 	  if( hi2s.Instance  == SPI2  )
 	  {
-	  /** Initializes the peripherals clock
-	  */
-	    PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_I2S;
-	    PeriphClkInitStruct.PLLI2S.PLLI2SN = 369;
-	    PeriphClkInitStruct.PLLI2S.PLLI2SR = 6;
-	    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-	    {
-	      return 1U ;
-	    }
+
 
 
 
