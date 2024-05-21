@@ -32,6 +32,7 @@ extern QueueHandle_t xFFTQueue ;
 
 void vFFT_TaskRoutine( void * pvParameters )
 {
+	uint32_t Mode =   pvParameters   ;
 	/*01 : Init FFT  */
 	arm_status status = ARM_MATH_SUCCESS ;
 	status = arm_cfft_radix4_init_f32	( &FFT_Instance ,  FFT_SIZE , 0 ,1 )	;
@@ -58,6 +59,10 @@ void vFFT_TaskRoutine( void * pvParameters )
 			 arm_cmplx_mag_f32(InputBuffer, OutputBuffer, FFT_SIZE);
 
 			/*01  Send FFF Results Via USB  */
+	    		if ( Mode == 2U )
+	    		{
+	    		 CDC_Transmit_FS( (uint8_t * ) OutputBuffer, FFT_SIZE  * sizeof( float32_t ));
+	    		}
 			}
 		DEBUG_PIN_TASK_FFT_TOGGLE();
 		/*01  Task  Periode */

@@ -57,6 +57,7 @@ void HAL_I2S_RxCpltCallback (I2S_HandleTypeDef *hi2s )
 
 void vDecimationTaskRoutine( void * pvParameters )
 {
+	uint32_t Mode =   pvParameters   ;
 	/* create decimation  queue */
 
 	xDecimationQueue =  xQueueCreate( DECMATION_QUEUE_SIZE , sizeof(  uint16_t  ) * PDM_BUFFER_SIZE   ) ;
@@ -103,8 +104,11 @@ void vDecimationTaskRoutine( void * pvParameters )
 #define TEST_RECORD
 #ifdef TEST_RECORD
     		/* send samples via usb */
-
+    		if ( Mode == 1U )
+    		{
     		 CDC_Transmit_FS( (uint8_t * ) f32PCM_Buffer, PCM_BUFFER_SIZE  * sizeof(float));
+
+    		}
 #endif
     	}
 

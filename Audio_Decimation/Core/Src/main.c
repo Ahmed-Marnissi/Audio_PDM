@@ -34,6 +34,14 @@
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
+typedef enum
+{
+	AUDIO_IDLE = 0U ,
+	AUDIO_PLAYBACK  ,
+	AUDIO_EQUALIZER ,
+
+}DevicceMode_en ;
+
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -43,13 +51,15 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
+
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
 
 
 /* USER CODE BEGIN PV */
-
+uint8_t u8USBrecieveBuffer[64];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -61,6 +71,17 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t  uBuffercmp (uint8_t *buffer1 , uint8_t *buffer2, uint16_t  length )
+{
+    for (size_t i = 0; i < length; i++)
+    {
+        if (buffer1[i] != buffer2[i])
+        {
+            return 1U;
+        }
+    }
+    return 0U;
+}
 
 /* USER CODE END 0 */
 
@@ -92,17 +113,40 @@ int main(void)
 
   MX_USB_DEVICE_Init();
   /* USER CODE BEGIN 2 */
+  /* Wait for CMD */
 
+  uint8_t u8ModeSelected = 0U ;
+  DevicceMode_en Mode = AUDIO_IDLE ;
+  do
+  {
+	  if ( 0U == uBuffercmp(u8USBrecieveBuffer , "PB_MODE"  , 7U ) )
+	  {
+		  	  u8ModeSelected = 1U ;
+		  	  Mode =AUDIO_PLAYBACK ;
+	  }
+	  else if (0U == uBuffercmp(u8USBrecieveBuffer , "EQ_MODE"  , 7U ) )
+	  {
+		      u8ModeSelected = 1U ;
+		      Mode =AUDIO_EQUALIZER ;
+	  }else
+	  {
+		  /*Nothing TO do */
+	  }
 
+  }while ( u8ModeSelected == 0U );
+
+  if ( u8ModeSelected == 1U  )
+  {
   BaseType_t    xReturned  =pdFALSE;
 
 		         xReturned = xTaskCreate(
 		  	  	  vDecimationTaskRoutine ,
                   "DECIMATION_TASK" ,
                   300U,
-				  NULL,
+				  (void * )Mode ,
                   tskIDLE_PRIORITY + 2U ,
-                  NULL  );
+                  NULL
+				  );
 
 
   if (  xReturned != pdPASS )
@@ -112,11 +156,12 @@ int main(void)
 
   xReturned = xTaskCreate(
 		  vFFT_TaskRoutine  ,
-       "FFT_TASK" ,
-       300U,
-		  NULL,
-       tskIDLE_PRIORITY + 1U ,
-       NULL  );
+		  "FFT_TASK" ,
+		  300U,
+		  (void * )Mode ,
+		  tskIDLE_PRIORITY + 1U ,
+		  NULL
+		  );
 
 
     if (  xReturned != pdPASS )
@@ -127,6 +172,11 @@ int main(void)
 
   /* start system */
   vTaskStartScheduler();
+  }
+  else
+  {
+	  /*Nothing to  do */
+  }
 
   /* USER CODE END 2 */
 
