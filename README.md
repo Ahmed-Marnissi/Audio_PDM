@@ -48,11 +48,31 @@ The application leverages the STM32F407’s capabilities, such as its DSP instru
   - Outputs FFT data over UART or USB.
   - Displays frequency spectrum if connected to a GUI or terminal application.
 
-### Workflow
-1. **Data Acquisition**: PDM data is acquired from the microphone.
-2. **Decimation**: The PDM data is decimated into PCM data using a filter.
-3. **FFT Processing**: The PCM data is passed to the FFT module for frequency analysis.
-4. **Output**: FFT results are transmitted via UART/USB for visualization or further analysis.
+### Workflow Overview
+
+Data Acquisition and Processing Workflow
+
+PDM Signal Acquisition:
+
+PDM data is acquired from the microphone using DMA.
+
+The DMA callbacks transfer the PDM data to the PDM task via a FreeRTOS queue.
+
+PDM to PCM Conversion:
+
+The PDM task performs decimation and filtering to convert the PDM data into PCM data.
+
+FFT Processing:
+
+The PCM data is passed to the FFT task through a queue.
+
+The FFT task calculates the frequency components using the CMSIS-DSP library.
+
+Output to Python Interface:
+
+The FFT results are sent via USB to a Python-based interface for real-time visualization.
+![Workflow Diagram](AnimationAudio.gif)
+
 
 ---
 
