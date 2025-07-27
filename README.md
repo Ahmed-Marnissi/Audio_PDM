@@ -90,9 +90,6 @@ The FFT results are sent via USB to a Python-based interface for real-time visua
    ```bash
    git clone <repository-url>
 
-```
-
----
 
 ## Testing the Demo with the Audio GUI
 
