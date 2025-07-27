@@ -71,7 +71,7 @@ The FFT task calculates the frequency components using the CMSIS-DSP library.
 Output to Python Interface:
 
 The FFT results are sent via USB to a Python-based interface for real-time visualization.
-![Workflow Diagram](AnimationAudio.gif)
+![Workflow Diagram](./doc/AnimationAudio.gif)
 
 
 ---
@@ -89,3 +89,57 @@ The FFT results are sent via USB to a Python-based interface for real-time visua
 1. Clone the repository:
    ```bash
    git clone <repository-url>
+
+```
+
+---
+
+## Testing the Demo with the Audio GUI
+
+### Audio GUI Overview
+
+A cross-platform graphical interface is provided to control and visualize the STM32 Audio Demo.
+**Home of the GUI interface:**
+`audio_gui/` (navigate to this directory for the GUI source or executable)
+
+![STM32 Audio GUI Example](./doc/audio_gui_home.png)
+
+### How to Use the Audio GUI
+
+1. **Build and Flash the Firmware**
+   - Follow the standard build and flash instructions for your STM32F407 board.
+
+2. **Connect the Board**
+   - Plug the STM32F407 Discovery board into your PC via USB.
+   - Wait for the device to enumerate (USB CDC).
+
+3. **Launch the Audio GUI**
+   - Navigate to the `audio_gui` directory.
+   - Run the GUI application (e.g., `python main.py` if it’s Python-based, or double-click the executable if provided).
+
+4. **Select the Serial Port**
+   - In the GUI, select the correct COM port corresponding to your STM32 device.
+   - If no COM ports are available, check your USB connection and drivers.
+
+5. **Choose Operation Mode**
+   - Click **Playback Mode** to test audio playback.
+   - Click **Spectrum Analysis Mode** to visualize FFT results in real time.
+
+6. **Connect**
+   - Press the **Connect** button to establish communication.
+   - The status will update, and the GUI will display real-time data from the STM32.
+
+7. **Interact**
+   - Use the GUI controls to switch modes, start/stop analysis, or view live spectrum data.
+
+### Troubleshooting
+
+- **No COM Port Detected:**  
+  Ensure the STM32 is properly flashed and connected. Try reconnecting the USB cable or restarting the GUI.
+- **No Data Displayed:**  
+  Make sure the STM32 is running the correct firmware and that the mode is selected via the GUI.
+
+---
+
+**Note:**  
+For more details about the GUI, see the `audio_gui/README.md` or the documentation inside the `audio_gui` folder.
