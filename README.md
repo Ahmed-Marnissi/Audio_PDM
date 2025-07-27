@@ -137,6 +137,3 @@ A cross-platform graphical interface is provided to control and visualize the ST
   Make sure the STM32 is running the correct firmware and that the mode is selected via the GUI.
 
 ---
-
-**Note:**  
-For more details about the GUI, see the `audio_gui/README.md` or the documentation inside the `audio_gui` folder.
