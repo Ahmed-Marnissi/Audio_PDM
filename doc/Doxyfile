@@ -1,0 +1,10 @@
+PROJECT_NAME           = Audio_PDM
+OUTPUT_DIRECTORY       = .
+INPUT                  = ../Source/APP ../Source/BSP ../Source/Core/Src/main.c
+FILE_PATTERNS          = *.c *.h
+RECURSIVE              = YES
+GENERATE_HTML          = YES
+GENERATE_LATEX         = YES
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
