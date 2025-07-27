@@ -8,7 +8,7 @@ This project implements an audio processing application on the STM32F407 Discove
 
 The application leverages the STM32F407’s capabilities, such as its DSP instructions and PDM microphone input, to process and analyze audio signals.
 
----
+
 
 ## Features
 
@@ -48,29 +48,26 @@ The application leverages the STM32F407’s capabilities, such as its DSP instru
   - Outputs FFT data over UART or USB.
   - Displays frequency spectrum if connected to a GUI or terminal application.
 
+
 ### Workflow Overview
 
-Data Acquisition and Processing Workflow
+This project implements a real-time audio processing pipeline on the STM32F407 Discovery board. The workflow consists of the following stages:
 
-PDM Signal Acquisition:
+1. **PDM Signal Acquisition**
+   - The digital MEMS microphone outputs a PDM (Pulse Density Modulation) signal.
+   - PDM data is captured using DMA, minimizing CPU load.
+   - DMA callbacks transfer the acquired PDM data to the PDM processing task via a FreeRTOS queue.
 
-PDM data is acquired from the microphone using DMA.
+2. **PDM to PCM Conversion**
+   - The PDM task performs decimation and low-pass filtering to convert the raw PDM data into high-quality PCM (Pulse Code Modulation) audio samples.
 
-The DMA callbacks transfer the PDM data to the PDM task via a FreeRTOS queue.
+3. **FFT Processing**
+   - The PCM audio samples are sent to the FFT task through another FreeRTOS queue.
+   - The FFT task uses the CMSIS-DSP library to compute the frequency spectrum of the audio in real time.
 
-PDM to PCM Conversion:
-
-The PDM task performs decimation and filtering to convert the PDM data into PCM data.
-
-FFT Processing:
-
-The PCM data is passed to the FFT task through a queue.
-
-The FFT task calculates the frequency components using the CMSIS-DSP library.
-
-Output to Python Interface:
-
-The FFT results are sent via USB to a Python-based interface for real-time visualization.
+4. **Data Output and Visualization**
+   - The FFT results are transmitted over USB (CDC) to a Python-based GUI.
+   - The GUI provides real-time visualization of the audio spectrum and allows mode selection and control.
 ![Workflow Diagram](./doc/AnimationAudio.gif)
 
 
