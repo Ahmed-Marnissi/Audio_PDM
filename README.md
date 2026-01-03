@@ -155,3 +155,13 @@ If you want the pipeline/architecture diagrams to render, install Graphviz and r
 winget install graphviz
 # or: choco install graphviz
 ```
+
+---
+
+## Animations
+
+![Audio Processing Workflow](./Docs/sphinx/AnimationAudio.gif)
+
+![FFT Spectrum Animation](./Docs/sphinx/AnimationFFT.gif)
+
+![Playback Visualization](./Docs/sphinx/AnimationPlayback.gif)
