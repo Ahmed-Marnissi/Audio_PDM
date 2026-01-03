@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; Audio Decimation and FFT Analyzer  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a1ae0102" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Architecture" href="architecture.html" />
+    <link rel="prev" title="Audio Decimation and FFT Analyzer (STM32F407)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #3b3f46" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Audio Decimation and FFT Analyzer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-features">Key features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-and-software">Hardware and software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#workflow-at-a-glance">Workflow at a glance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#signal-pipeline">Signal pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#task-and-queue-model">Task and queue model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="firmware.html">Firmware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="firmware.html#pdm-capture-and-decimation">PDM capture and decimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware.html#fft-processing">FFT processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware.html#output-streaming">Output streaming</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">GUI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#main-entry-point">Main entry point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#modes">Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gui.html#interface-snapshot">Interface snapshot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diagrams.html">Diagrams and Animations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diagrams.html#workflow-animation">Workflow animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagrams.html#fft-visualization">FFT visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagrams.html#playback-visualization">Playback visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build and Run</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#firmware-build">Firmware build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#gui-setup">GUI setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#verification-checklist">Verification checklist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#documentation-build">Documentation build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #3b3f46" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Audio Decimation and FFT Analyzer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<p>This project implements a real-time audio processing pipeline on the
+STM32F407 Discovery board. The on-board PDM microphone is converted to PCM
+and analyzed with an FFT. Results are streamed to a PC for visualization
+through a Python GUI.</p>
+<section id="key-features">
+<h2>Key features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>PDM to PCM decimation with low-pass filtering.</p></li>
+<li><p>Real-time FFT analysis using CMSIS-DSP.</p></li>
+<li><p>USB CDC or UART data output for host visualization.</p></li>
+<li><p>PyQt5 GUI for playback and spectrum modes.</p></li>
+</ul>
+</section>
+<section id="hardware-and-software">
+<h2>Hardware and software<a class="headerlink" href="#hardware-and-software" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>STM32F407 Discovery board with integrated PDM microphone.</p></li>
+<li><p>STM32 HAL drivers and CMSIS-DSP.</p></li>
+<li><p>Python GUI in <cite>tools/audio_gui</cite> with PyQt5 and pyserial.</p></li>
+</ul>
+</section>
+<section id="workflow-at-a-glance">
+<h2>Workflow at a glance<a class="headerlink" href="#workflow-at-a-glance" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p>Capture PDM via DMA.</p></li>
+<li><p>Convert PDM to PCM with decimation and low-pass filtering.</p></li>
+<li><p>Run FFT on PCM frames.</p></li>
+<li><p>Stream results to the host and visualize in the GUI.</p></li>
+</ol>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Audio Decimation and FFT Analyzer (STM32F407)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="architecture.html" class="btn btn-neutral float-right" title="Architecture" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

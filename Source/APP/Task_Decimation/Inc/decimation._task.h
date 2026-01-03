@@ -11,6 +11,16 @@
 #ifndef TASK_DECIMATION_DECIMATION__TASK_H_
 #define TASK_DECIMATION_DECIMATION__TASK_H_
 
+typedef enum
+{
+	AUDIO_IDLE = 0U ,
+	AUDIO_PLAYBACK =1U ,
+	AUDIO_EQUALIZER =2U,
+
+}DeviceMode_t ;
+
+extern DeviceMode_t mode ;
+
 /**
  * @brief Decimation task function
  *

@@ -134,3 +134,24 @@ A cross-platform graphical interface is provided to control and visualize the ST
   Make sure the STM32 is running the correct firmware and that the mode is selected via the GUI.
 
 ---
+
+## Documentation (Sphinx)
+
+The Sphinx sources live in `Docs/sphinx`, and the HTML output is generated to `Docs/html`.
+
+### Build steps
+
+```console
+pip install sphinx sphinx_rtd_theme
+sphinx-build -b html Docs/sphinx Docs/html
+```
+
+### Graphviz diagrams (optional)
+
+If you want the pipeline/architecture diagrams to render, install Graphviz and rebuild:
+
+```console
+# Windows
+winget install graphviz
+# or: choco install graphviz
+```

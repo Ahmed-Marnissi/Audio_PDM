@@ -26,7 +26,9 @@ typedef enum {
     DECIMATION_IDLE = 0U,
     DECIMATION_COLLECT_SAMPLE,
     DECIMATION_PROCESS,
-    DECIMATION_SET_OUTPUT
+    DECIMATION_SET_OUTPUT,
+	DECIMATION_EXIT
+
 } decimation_app_state_t;
 
 typedef struct {
@@ -50,7 +52,7 @@ static float32_t f32PCM_Buffer[PCM_BUFFER_SIZE] = {0};
 static float32_t f32FFT_Buffer[FFT_SIZE] = {0};
 static BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 static decimation_handle_t decimation_handle;
-
+DeviceMode_t mode =AUDIO_IDLE ;
 QueueHandle_t xDecimationQueue ;
 QueueHandle_t xFFTQueue ;
 
@@ -76,9 +78,10 @@ void HAL_I2S_RxCpltCallback(I2S_HandleTypeDef *hi2s)
 }
 
 //=====================[ Decimation Task Routine ]============//
+
 void vDecimationTaskRoutine(void *pvParameters)
 {
-    UNUSED(pvParameters);
+
     uint8_t ret = 0U;
 
     ret = vDecimationInit(&decimation_handle);
@@ -149,46 +152,74 @@ uint8_t vDecimationInit(decimation_handle_t *handle)
 uint8_t vDecimationProcess(decimation_handle_t *handle)
 {
     if (handle == NULL)
-        return 1U;
-
-    switch (handle->appState)
     {
-        case DECIMATION_IDLE:
-            handle->appState = DECIMATION_COLLECT_SAMPLE;
-            break;
-        case DECIMATION_COLLECT_SAMPLE:
-            if (xQueueReceive(xDecimationQueue, u16IntermidatePDMBuf, 0U) == pdPASS)
-            {
-                handle->appState = DECIMATION_PROCESS;
-            }
-            else
-            {
-                handle->appState = DECIMATION_IDLE;
-            }
-            break;
-        case DECIMATION_PROCESS:
-            expandPDMbuffer(u16IntermidatePDMBuf, f32PDM_BITS_Buffer);
-            arm_fir_decimate_f32(&handle->decimateInstance, f32PDM_BITS_Buffer, f32PCM_Buffer, PDM_BITS_SIZE);
-            if (handle->fftCounter == FFT_SIZE)
-            {
-                handle->fftCounter = 0U;
-                handle->appState = DECIMATION_SET_OUTPUT;
-            }
-            else
-            {
-                memcpy(&f32FFT_Buffer[handle->fftCounter], f32PCM_Buffer, sizeof(float32_t) * PCM_BUFFER_SIZE);
-                handle->fftCounter += PCM_BUFFER_SIZE;
-                handle->appState = DECIMATION_IDLE;
-            }
-            break;
-        case DECIMATION_SET_OUTPUT:
-            xQueueSend(xFFTQueue, (void *)f32FFT_Buffer, 0);
-            handle->appState = DECIMATION_IDLE;
-            break;
-        default:
-            handle->appState = DECIMATION_IDLE;
-            break;
+        return 1U;
     }
+
+    handle->appState = DECIMATION_IDLE;
+
+    do
+    {
+    	switch (handle->appState)
+    	{
+    	case DECIMATION_IDLE:
+    	{
+    		handle->appState = DECIMATION_COLLECT_SAMPLE;
+    		break;
+    	}
+    	case DECIMATION_COLLECT_SAMPLE:
+    	{
+    		if (xQueueReceive(xDecimationQueue, u16IntermidatePDMBuf, 0U) == pdPASS)
+    		{
+    			handle->appState = DECIMATION_PROCESS;
+    		}
+    		else
+    		{
+    			handle->appState = DECIMATION_EXIT;
+    		}
+    		break;
+    	}
+    	case DECIMATION_PROCESS:
+    	{
+    		expandPDMbuffer(u16IntermidatePDMBuf, f32PDM_BITS_Buffer);
+    		arm_fir_decimate_f32(&handle->decimateInstance, f32PDM_BITS_Buffer, f32PCM_Buffer, PDM_BITS_SIZE);
+    		if (handle->fftCounter == FFT_SIZE)
+    		{
+    			handle->fftCounter = 0U;
+    			handle->appState = DECIMATION_SET_OUTPUT;
+    		}
+    		else
+    		{
+    			memcpy(&f32FFT_Buffer[handle->fftCounter], f32PCM_Buffer, sizeof(float32_t) * PCM_BUFFER_SIZE);
+    			handle->fftCounter += PCM_BUFFER_SIZE;
+    			handle->appState = DECIMATION_EXIT ;
+    		}
+    		break;
+    	}
+    	case DECIMATION_SET_OUTPUT:
+    	{
+
+    		if ( mode == AUDIO_PLAYBACK )
+    		{
+    			CDC_Transmit_FS( (uint8_t * ) f32PCM_Buffer, PCM_BUFFER_SIZE  * sizeof(float));
+
+    		}else
+    		{
+    			xQueueSend(xFFTQueue, (void *)f32FFT_Buffer, 0);
+    		}
+
+    		handle->appState = DECIMATION_EXIT;
+
+    		break;
+    	}
+    	default:
+    	{
+    		handle->appState = DECIMATION_IDLE;
+
+    		break;
+    	}
+      }
+    }while ( handle->appState != DECIMATION_EXIT );
     handle->taskTicks++;
     return 0U;
 }

@@ -132,7 +132,7 @@ class ModeSelector(QWidget):
 
     def onSpectrum(self):
         print("Spectrum Analysis Mode Selected")
-        self.sendMessage("SP_MODE")
+        self.sendMessage("EQ_MODE")
         spectre_screen = SpectrumScreen(serial_instance=self.serialPort, parent=self)
         self.parent().setCentralWidget(spectre_screen )
         # Switch to spectrum analysis screen (to be implemented)

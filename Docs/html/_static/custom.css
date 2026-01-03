@@ -1,0 +1,75 @@
+/* Sidebar and header styling to match the reference look */
+.wy-side-nav-search {
+  background: #3d84b8;
+}
+
+.wy-side-nav-search > a {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.wy-side-nav-search input[type="text"] {
+  border-radius: 18px;
+  border: 1px solid #2b6a98;
+  box-shadow: none;
+}
+
+.wy-nav-side {
+  background: #2f2f2f;
+}
+
+.wy-menu-vertical a {
+  color: #e6e6e6;
+}
+
+.wy-menu-vertical a:hover {
+  background: #3a3a3a;
+  color: #ffffff;
+}
+
+.wy-menu-vertical li.current > a {
+  background: #e6e6e6;
+  color: #2b2b2b;
+}
+
+.wy-menu-vertical li.toctree-l1.current > a {
+  border-left: 4px solid #3d84b8;
+}
+
+/* Content typography */
+.wy-nav-content {
+  background: #ffffff;
+  max-width: 900px;
+}
+
+.wy-nav-content .rst-content h1,
+.wy-nav-content .rst-content h2,
+.wy-nav-content .rst-content h3 {
+  font-family: "Georgia", "Times New Roman", serif;
+  color: #3b2f2a;
+}
+
+.wy-nav-content .rst-content {
+  font-family: "Helvetica Neue", "Segoe UI", Arial, sans-serif;
+  color: #2b2b2b;
+}
+
+.wy-nav-content a {
+  color: #2b6cb0;
+}
+
+.wy-nav-content a:visited {
+  color: #2b6cb0;
+}
+
+/* Diagrams and figures */
+.rst-content img {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.rst-content .figure {
+  margin: 1.5em 0;
+}
+

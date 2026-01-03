@@ -136,15 +136,18 @@ static uint8_t vFFT_Process(fft_handle_t *handle)
             break;
         }
         case FFT_SET_OUTPUT:
-            if (handle->mode == 2U)
-            {
-                CDC_Transmit_FS((uint8_t *)OutputBuffer, FFT_SIZE * sizeof(float32_t));
-            }
+        {
+
+             CDC_Transmit_FS((uint8_t *)OutputBuffer, FFT_SIZE * sizeof(float32_t));
+
             handle->appState = FFT_IDLE;
             break;
+        }
         default:
+        {
             handle->appState = FFT_IDLE;
             break;
+        }
     }
     handle->taskTicks++;
     return 0U;

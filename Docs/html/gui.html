@@ -1,0 +1,172 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GUI &mdash; Audio Decimation and FFT Analyzer  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a1ae0102" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Diagrams and Animations" href="diagrams.html" />
+    <link rel="prev" title="Firmware" href="firmware.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #3b3f46" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Audio Decimation and FFT Analyzer
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#key-features">Key features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#hardware-and-software">Hardware and software</a></li>
+<li class="toctree-l2"><a class="reference internal" href="overview.html#workflow-at-a-glance">Workflow at a glance</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#signal-pipeline">Signal pipeline</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html#task-and-queue-model">Task and queue model</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="firmware.html">Firmware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="firmware.html#pdm-capture-and-decimation">PDM capture and decimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware.html#fft-processing">FFT processing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firmware.html#output-streaming">Output streaming</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GUI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-entry-point">Main entry point</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modes">Modes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interface-snapshot">Interface snapshot</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="diagrams.html">Diagrams and Animations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="diagrams.html#workflow-animation">Workflow animation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagrams.html#fft-visualization">FFT visualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="diagrams.html#playback-visualization">Playback visualization</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build and Run</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="build.html#firmware-build">Firmware build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#gui-setup">GUI setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#verification-checklist">Verification checklist</a></li>
+<li class="toctree-l2"><a class="reference internal" href="build.html#documentation-build">Documentation build</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #3b3f46" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Audio Decimation and FFT Analyzer</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">GUI</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/gui.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gui">
+<h1>GUI<a class="headerlink" href="#gui" title="Link to this heading"></a></h1>
+<p>The GUI is a PyQt5 application located in <cite>tools/audio_gui</cite>. It provides
+mode selection, serial connection management, and real-time visualization
+of playback and FFT data.</p>
+<section id="main-entry-point">
+<h2>Main entry point<a class="headerlink" href="#main-entry-point" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><cite>tools/audio_gui/main.py</cite> starts the application and mode selector.</p></li>
+<li><p>The GUI uses pyserial to open the USB CDC COM port.</p></li>
+</ul>
+</section>
+<section id="modes">
+<h2>Modes<a class="headerlink" href="#modes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Playback mode sends the <cite>PB_MODE</cite> command to the device.</p></li>
+<li><p>Spectrum analysis mode sends the <cite>EQ_MODE</cite> command and renders FFT data.</p></li>
+</ul>
+</section>
+<section id="interface-snapshot">
+<h2>Interface snapshot<a class="headerlink" href="#interface-snapshot" title="Link to this heading"></a></h2>
+<figure class="align-center" id="id1">
+<img alt="STM32 Audio GUI home screen" src="_images/audio_gui_home.png" />
+<figcaption>
+<p><span class="caption-text">Main screen for mode selection and serial connection.</span><a class="headerlink" href="#id1" title="Link to this image"></a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="firmware.html" class="btn btn-neutral float-left" title="Firmware" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="diagrams.html" class="btn btn-neutral float-right" title="Diagrams and Animations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
