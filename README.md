@@ -96,7 +96,7 @@ A cross-platform graphical interface is provided to control and visualize the ST
 **Home of the GUI interface:**
 `audio_gui/` (navigate to this directory for the GUI source or executable)
 
-![STM32 Audio GUI Example](./doc/audio_gui_home.png)
+![STM32 Audio GUI Example](./Docs/audio_gui_home.png)
 
 ### How to Use the Audio GUI
 
